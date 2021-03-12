@@ -2175,17 +2175,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-// import employee-component from './components/EmployeeComponent.vue';
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Employee',
   data: function data() {
     return {
       editmode: false,
-      // companyForm: true,
-      // employeeForm: false,
       pagination: {},
       employees: '',
       form: new Form({
@@ -2197,18 +2191,6 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    // companyShow(){
-    //     this.companyForm = true
-    //     this.employeeForm = false
-    // },
-    // employeeShow(){
-    //     this.companyForm = false
-    //     this.employeeForm = true
-    // },
-    // attachLogo(){
-    //     this.form.logo = this.$refs.newLogoImage.files[0];
-    //     console.log(this.form.logo)
-    // },
     deleteCompany: function deleteCompany(e) {
       var _this = this;
 
@@ -2253,16 +2235,6 @@ __webpack_require__.r(__webpack_exports__);
         return console.log(error);
       });
     },
-    // makePagination(meta, links){
-    //     let pagination = {
-    //         current_page: meta.current_page,
-    //         last_page: meta.last_page,
-    //         next_page_url: links.next,
-    //         prev_page_url: links.prev,
-    //     }
-    //     console.log(pagination);
-    //     this.pagination = pagination;
-    // },
     saveData: function saveData() {
       var _this4 = this;
 
@@ -38186,7 +38158,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "row d-flex mb-2 justify-content-between" }, [
+    _c("div", { staticClass: "row mb-2" }, [
       _c(
         "div",
         {

@@ -92,21 +92,15 @@
                 </table>
             </div>
         </div>
-        <!-- <div v-show="employeeForm" class="animate__animated animate__fadeInDown">
-            <employee-component></employee-component>
-        </div> -->
     </div>
 </template>
 
 <script>
-    // import employee-component from './components/EmployeeComponent.vue';
     export default {
         name: 'Employee',
         data(){
             return{
                 editmode: false,
-                // companyForm: true,
-                // employeeForm: false,
                 pagination: {},
                 employees: '',
                 form: new Form({
@@ -118,18 +112,6 @@
             }
         },
         methods: {
-            // companyShow(){
-            //     this.companyForm = true
-            //     this.employeeForm = false
-            // },
-            // employeeShow(){
-            //     this.companyForm = false
-            //     this.employeeForm = true
-            // },
-            // attachLogo(){
-            //     this.form.logo = this.$refs.newLogoImage.files[0];
-            //     console.log(this.form.logo)
-            // },
             deleteCompany(e){
                 let data = new FormData();
                 data.append('_method', 'DELETE')
@@ -169,16 +151,6 @@
                     console.log(error)
                 ))
             },
-            // makePagination(meta, links){
-            //     let pagination = {
-            //         current_page: meta.current_page,
-            //         last_page: meta.last_page,
-            //         next_page_url: links.next,
-            //         prev_page_url: links.prev,
-            //     }
-            //     console.log(pagination);
-            //     this.pagination = pagination;
-            // },
             saveData(){
                 let data = new FormData();
                 data.append('fname', this.form.fname);

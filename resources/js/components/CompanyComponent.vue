@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="row d-flex mb-2 justify-content-between">
+        <div class="row mb-2">
             <div v-on:click="companyShow()" class="btn btn-secondary col-md-6">Company</div>
             <div v-on:click="employeeShow()" class="btn btn-secondary col-md-6">Employee</div>
         </div>
