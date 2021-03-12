@@ -41,7 +41,7 @@
                                         <button type="submit" class="btn btn-primary" value="">Log In</button>
                                     </div>
                                 </div>
-                                <p class="signup-link">Not registered ? <a href="/register">Create an account</a></p>
+                                <p class="signup-link">Visit my github <a href="https://github.com/Chris-Miracle"> you might see what you like</a></p>
                             </div>
                         </form>
 
