@@ -1939,6 +1939,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Company',
   data: function data() {
@@ -1983,15 +1991,35 @@ __webpack_require__.r(__webpack_exports__);
         _this2.form.errors.record(error.response.data.errors);
       });
     },
-    getCompanies: function getCompanies() {
+    getCompanies: function getCompanies(page_url) {
       var _this3 = this;
 
-      axios.get('api/company').then(function (res) {
+      var vm = this;
+      page_url = page_url || 'api/company';
+      fetch(page_url).then(function (res) {
+        return res.json();
+      }).then(function (res) {
         _this3.companies = res.data;
+        _this3.pagination = {
+          current_page: res.current_page,
+          last_page: res.last_page,
+          next_page_url: res.next_page_url,
+          prev_page_url: res.prev_page_url
+        };
       })["catch"](function (error) {
         return console.log(error);
       });
     },
+    // makePagination(meta, links){
+    //     let pagination = {
+    //         current_page: meta.current_page,
+    //         last_page: meta.last_page,
+    //         next_page_url: links.next,
+    //         prev_page_url: links.prev,
+    //     }
+    //     console.log(pagination);
+    //     this.pagination = pagination;
+    // },
     saveData: function saveData() {
       var _this4 = this;
 
@@ -2287,7 +2315,8 @@ window.Form = _Form__WEBPACK_IMPORTED_MODULE_0__.default; // window.store = stor
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('company-component', __webpack_require__(/*! ./components/CompanyComponent.vue */ "./resources/js/components/CompanyComponent.vue").default);
+Vue.component('company-component', __webpack_require__(/*! ./components/CompanyComponent.vue */ "./resources/js/components/CompanyComponent.vue").default); // Vue.component('pagination', require('./laravel-vue-pagination'));
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -38010,13 +38039,81 @@ var render = function() {
         _vm._v(" "),
         _c(
           "button",
-          { staticClass: "btn btn-primary mt-3", attrs: { type: "submit" } },
+          {
+            staticClass: "btn btn-primary mt-3 mb-5",
+            attrs: { type: "submit" }
+          },
           [_vm._v("Add New Company ")]
         )
       ]
     ),
     _vm._v(" "),
-    _c("div", { staticClass: "table-responsive mt-5" }, [
+    _c("nav", { attrs: { "aria-label": "Page navigation example m-5" } }, [
+      _c("ul", { staticClass: "pagination" }, [
+        _c(
+          "li",
+          {
+            staticClass: "page-item",
+            class: [{ disabled: !_vm.pagination.prev_page_url }]
+          },
+          [
+            _c(
+              "a",
+              {
+                staticClass: "page-link",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    return _vm.getCompanies(_vm.pagination.prev_page_url)
+                  }
+                }
+              },
+              [_vm._v("Previous")]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c("li", { staticClass: "page-item disabled" }, [
+          _c(
+            "a",
+            { staticClass: "page-link text-dark", attrs: { href: "#" } },
+            [
+              _vm._v(
+                "Page " +
+                  _vm._s(_vm.pagination.current_page) +
+                  " of " +
+                  _vm._s(_vm.pagination.last_page)
+              )
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "li",
+          {
+            staticClass: "page-item",
+            class: [{ disabled: !_vm.pagination.next_page_url }]
+          },
+          [
+            _c(
+              "a",
+              {
+                staticClass: "page-link",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    return _vm.getCompanies(_vm.pagination.next_page_url)
+                  }
+                }
+              },
+              [_vm._v("Next")]
+            )
+          ]
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "table-responsive mt-2" }, [
       _c("table", { staticClass: "table table-bordered mb-4" }, [
         _vm._m(0),
         _vm._v(" "),

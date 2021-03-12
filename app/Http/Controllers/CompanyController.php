@@ -14,7 +14,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return Company::latest()->get();
+        return Company::latest()->paginate(10);
     }
 
     public function welcome()
@@ -105,6 +105,6 @@ class CompanyController extends Controller
     {
         $data = Company::findOrfail($id);
         $data->delete();
-        return Company::latest()->get();
+        return Company::latest()->paginate(10);
     }
 }

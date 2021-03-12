@@ -29,10 +29,18 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary mt-3">Add New Company </button>
+            <button type="submit" class="btn btn-primary mt-3 mb-5">Add New Company </button>
         </form>
 
-        <div class="table-responsive mt-5">
+        <nav aria-label="Page navigation example m-5">
+                <ul class="pagination">
+                    <li v-bind:class="[{disabled: !pagination.prev_page_url}]" class="page-item"><a class="page-link" href="#" @click="getCompanies(pagination.prev_page_url)">Previous</a></li>
+                    <li class="page-item disabled"><a href="#" class="page-link text-dark">Page {{pagination.current_page}} of {{pagination.last_page}}</a></li>
+                    <li v-bind:class="[{disabled: !pagination.next_page_url}]" class="page-item"><a class="page-link" href="#" @click="getCompanies(pagination.next_page_url)">Next</a></li>
+                </ul>
+            </nav>
+
+        <div class="table-responsive mt-2">
             <table class="table table-bordered mb-4">
                 <thead>
                     <tr>
@@ -134,13 +142,33 @@
                 this.form.errors.record(error.response.data.errors)
                 })
             },
-            getCompanies(){
-                axios.get('api/company').then((res) => {
-                    this.companies =  res.data
+            getCompanies(page_url){
+                let vm = this;
+                page_url = page_url || 'api/company'
+                fetch(page_url)
+                .then(res => res.json())
+                .then((res) => {
+                    this.companies =  res.data;
+                    this.pagination = {
+                        current_page: res.current_page,
+                        last_page: res.last_page,
+                        next_page_url: res.next_page_url,
+                        prev_page_url: res.prev_page_url,
+                    };
                 }).catch((error) => (
                     console.log(error)
                 ))
             },
+            // makePagination(meta, links){
+            //     let pagination = {
+            //         current_page: meta.current_page,
+            //         last_page: meta.last_page,
+            //         next_page_url: links.next,
+            //         prev_page_url: links.prev,
+            //     }
+            //     console.log(pagination);
+            //     this.pagination = pagination;
+            // },
             saveData(){
                 let data = new FormData();
                 data.append('name', this.form.name);

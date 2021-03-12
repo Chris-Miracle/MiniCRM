@@ -24,6 +24,7 @@ window.Form = Form
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('company-component', require('./components/CompanyComponent.vue').default);
+// Vue.component('pagination', require('./laravel-vue-pagination'));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
