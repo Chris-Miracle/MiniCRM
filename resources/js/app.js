@@ -7,8 +7,10 @@
 require('./bootstrap');
 
 window.Vue = require('vue').default;
-import Form from './Form'
+import Form from './Form';
+import store from './store';
 window.Form = Form
+// window.store = store
 
 /**
  * The following block of code may be used to automatically register your
@@ -31,4 +33,5 @@ Vue.component('company-component', require('./components/CompanyComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    store
 });

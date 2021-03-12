@@ -90,7 +90,9 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = Company::findOrfail($id);
+        $data->update($request->all());
+        $data->save();
     }
 
     /**
@@ -101,6 +103,8 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Company::findOrfail($id);
+        $data->delete();
+        return Company::latest()->get();
     }
 }
