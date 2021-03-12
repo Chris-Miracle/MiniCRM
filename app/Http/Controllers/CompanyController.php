@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Company;
 
 class CompanyController extends Controller
 {
@@ -12,6 +13,11 @@ class CompanyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+    {
+        return Company::latest()->get();
+    }
+
+    public function welcome()
     {
         return view('welcome');
     }
@@ -34,7 +40,23 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+                'name' => 'required',
+                'email' => 'required',
+                'website' => 'required',
+                'logo' => 'required'
+            ]
+        );
+        // dd($request->all());
+        $data = new Company;
+        $data->name = $request->input('name');
+        $data->email = $request->input('email');
+        $data->website = $request->input('website');
+
+        $path = $request->file('logo')->store('companies_logo');
+
+        $data->logo = $path;
+        $data->save();
     }
 
     /**

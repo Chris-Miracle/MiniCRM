@@ -62,44 +62,6 @@
                                 @endif
                             <div class="widget-content">
                                 <company-component></company-component>
-                            {{-- <form action="{{route('craft.add')}}" method="post" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('post')
-                                    <div class="form-row mb-4">
-                                        <div class="form-group col-md-12">
-                                            <label for="name">Name</label>
-                                        <input type="text" class="form-control" placeholder="Name of Craft" name="name" value="{{old('name')}}">
-                                            <div class="text-danger">{{$errors->first('name')}}</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-row mb-4">
-                                        <div class="form-group col-md-12">
-                                            <label for="description">Description</label>
-                                        <input type="text" class="form-control" placeholder="Description" name="description" value="{{old('description')}}">
-                                            <div class="text-danger">{{$errors->first('description')}}</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-row mb-4">
-                                        <div class="form-group col-md-12">
-                                            <label for="price">Price</label>
-                                        <input type="text" class="form-control" placeholder="Price" name="price" value="{{old('price')}}">
-                                            <div class="text-danger">{{$errors->first('price')}}</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-row mb-4">
-                                        <div class="form-group col-md-12">
-                                            <label for="image">Add image</label>
-                                        <input type="file" class="form-control-file" name="image" value="{{old('image')}}">
-                                            <div class="text-danger">{{$errors->first('image')}}</div>
-                                        </div>
-                                    </div>
-
-                                    <button type="submit" class="btn btn-primary mt-3">Add New Craft </button>
-                                </form>
-                            </div> --}}
                         </div>
                     </div>
                 </div>

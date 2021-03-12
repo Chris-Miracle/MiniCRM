@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => '/', 'middleware' => ['auth']], function (){
-    Route::get('/', 'App\Http\Controllers\CompanyController@index')->name('companies');
+    Route::get('/', 'App\Http\Controllers\CompanyController@welcome')->name('companies');
 });
 
 Auth::routes(['register' => false]);
