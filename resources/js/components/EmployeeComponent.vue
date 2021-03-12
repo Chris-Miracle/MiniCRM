@@ -1,10 +1,5 @@
 <template>
     <div>
-        <div class="row d-flex mb-2 justify-content-between">
-            <div v-on:click="companyShow()" class="btn btn-secondary col-md-6">Company</div>
-            <div v-on:click="employeeShow()" class="btn btn-secondary col-md-6">Employee</div>
-        </div>
-        <hr>
         <div v-show="companyForm" class="animate__animated animate__fadeInDown">
             <form @submit.prevent="saveData" enctype="multipart/form-data">
                 <div class="form-row mb-1">
@@ -104,18 +99,16 @@
                 </table>
             </div>
         </div>
-        <div v-show="employeeForm" class="animate__animated animate__fadeInDown">
-            <employee-component/>
-        </div>
+        <!-- <div v-show="employeeForm" class="animate__animated animate__fadeInDown">
+            <employee-component></employee-component>
+        </div> -->
     </div>
 </template>
 
 <script>
+    // import employee-component from './components/EmployeeComponent.vue';
     export default {
         name: 'Company',
-        // components:{
-        //     Employee
-        // },
         data(){
             return{
                 editmode: false,

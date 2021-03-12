@@ -1947,11 +1947,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Company',
+  // components:{
+  //     Employee
+  // },
   data: function data() {
     return {
       editmode: false,
+      companyForm: true,
+      employeeForm: false,
       pagination: {},
       companies: '',
       form: new Form({
@@ -1963,6 +1978,240 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    companyShow: function companyShow() {
+      this.companyForm = true;
+      this.employeeForm = false;
+    },
+    employeeShow: function employeeShow() {
+      this.companyForm = false;
+      this.employeeForm = true;
+    },
+    attachLogo: function attachLogo() {
+      this.form.logo = this.$refs.newLogoImage.files[0];
+      console.log(this.form.logo);
+    },
+    deleteCompany: function deleteCompany(e) {
+      var _this = this;
+
+      var data = new FormData();
+      data.append('_method', 'DELETE');
+      axios.post('api/company/' + e.id, data).then(function (res) {
+        _this.companies = res.data;
+      })["catch"](function (error) {
+        _this.form.errors.record(error.response.data.errors);
+      });
+    },
+    updateCompany: function updateCompany(e) {
+      var _this2 = this;
+
+      this.editmode = false;
+      var data = new FormData();
+      data.append('_method', 'PATCH');
+      data.append('name', e.name);
+      data.append('email', e.email);
+      data.append('website', e.website);
+      axios.post('api/company/' + e.id, data)["catch"](function (error) {
+        _this2.form.errors.record(error.response.data.errors);
+      });
+    },
+    getCompanies: function getCompanies(page_url) {
+      var _this3 = this;
+
+      var vm = this;
+      page_url = page_url || 'api/company';
+      fetch(page_url).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        _this3.companies = res.data;
+        _this3.pagination = {
+          current_page: res.current_page,
+          last_page: res.last_page,
+          next_page_url: res.next_page_url,
+          prev_page_url: res.prev_page_url
+        };
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    },
+    // makePagination(meta, links){
+    //     let pagination = {
+    //         current_page: meta.current_page,
+    //         last_page: meta.last_page,
+    //         next_page_url: links.next,
+    //         prev_page_url: links.prev,
+    //     }
+    //     console.log(pagination);
+    //     this.pagination = pagination;
+    // },
+    saveData: function saveData() {
+      var _this4 = this;
+
+      var data = new FormData();
+      data.append('name', this.form.name);
+      data.append('email', this.form.email);
+      data.append('website', this.form.website);
+      data.append('logo', this.form.logo);
+      axios.post('/api/company', data).then(function (res) {
+        _this4.form.reset();
+
+        _this4.getCompanies();
+      })["catch"](function (error) {
+        _this4.form.errors.record(error.response.data.errors);
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getCompanies();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EmployeeComponent.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EmployeeComponent.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+// import employee-component from './components/EmployeeComponent.vue';
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'Company',
+  data: function data() {
+    return {
+      editmode: false,
+      companyForm: true,
+      employeeForm: false,
+      pagination: {},
+      companies: '',
+      form: new Form({
+        name: '',
+        email: '',
+        website: '',
+        logo: ''
+      })
+    };
+  },
+  methods: {
+    companyShow: function companyShow() {
+      this.companyForm = true;
+      this.employeeForm = false;
+    },
+    employeeShow: function employeeShow() {
+      this.companyForm = false;
+      this.employeeForm = true;
+    },
     attachLogo: function attachLogo() {
       this.form.logo = this.$refs.newLogoImage.files[0];
       console.log(this.form.logo);
@@ -2315,8 +2564,8 @@ window.Form = _Form__WEBPACK_IMPORTED_MODULE_0__.default; // window.store = stor
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('company-component', __webpack_require__(/*! ./components/CompanyComponent.vue */ "./resources/js/components/CompanyComponent.vue").default); // Vue.component('pagination', require('./laravel-vue-pagination'));
-
+Vue.component('company-component', __webpack_require__(/*! ./components/CompanyComponent.vue */ "./resources/js/components/CompanyComponent.vue").default);
+Vue.component('employee-component', __webpack_require__(/*! ./components/EmployeeComponent.vue */ "./resources/js/components/EmployeeComponent.vue").default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -37821,6 +38070,45 @@ component.options.__file = "resources/js/components/CompanyComponent.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/EmployeeComponent.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/EmployeeComponent.vue ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _EmployeeComponent_vue_vue_type_template_id_20dc3794___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EmployeeComponent.vue?vue&type=template&id=20dc3794& */ "./resources/js/components/EmployeeComponent.vue?vue&type=template&id=20dc3794&");
+/* harmony import */ var _EmployeeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EmployeeComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/EmployeeComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _EmployeeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _EmployeeComponent_vue_vue_type_template_id_20dc3794___WEBPACK_IMPORTED_MODULE_0__.render,
+  _EmployeeComponent_vue_vue_type_template_id_20dc3794___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/EmployeeComponent.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/CompanyComponent.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************!*\
   !*** ./resources/js/components/CompanyComponent.vue?vue&type=script&lang=js& ***!
@@ -37837,6 +38125,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/EmployeeComponent.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/EmployeeComponent.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./EmployeeComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EmployeeComponent.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/CompanyComponent.vue?vue&type=template&id=69afcf6b&":
 /*!*************************************************************************************!*\
   !*** ./resources/js/components/CompanyComponent.vue?vue&type=template&id=69afcf6b& ***!
@@ -37850,6 +38154,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CompanyComponent_vue_vue_type_template_id_69afcf6b___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CompanyComponent_vue_vue_type_template_id_69afcf6b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CompanyComponent.vue?vue&type=template&id=69afcf6b& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CompanyComponent.vue?vue&type=template&id=69afcf6b&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/EmployeeComponent.vue?vue&type=template&id=20dc3794&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/EmployeeComponent.vue?vue&type=template&id=20dc3794& ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeComponent_vue_vue_type_template_id_20dc3794___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeComponent_vue_vue_type_template_id_20dc3794___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeComponent_vue_vue_type_template_id_20dc3794___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./EmployeeComponent.vue?vue&type=template&id=20dc3794& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EmployeeComponent.vue?vue&type=template&id=20dc3794&");
 
 
 /***/ }),
@@ -37871,343 +38192,363 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "form",
-      {
-        attrs: { enctype: "multipart/form-data" },
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.saveData($event)
+    _c("div", { staticClass: "row d-flex mb-2 justify-content-between" }, [
+      _c(
+        "div",
+        {
+          staticClass: "btn btn-secondary col-md-6",
+          on: {
+            click: function($event) {
+              return _vm.companyShow()
+            }
           }
-        }
-      },
-      [
-        _c("div", { staticClass: "form-row mb-1" }, [
-          _c("div", { staticClass: "form-group col-md-6" }, [
-            _c("label", { attrs: { for: "name" } }, [_vm._v("Name")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.form.name,
-                  expression: "form.name"
-                }
-              ],
-              staticClass: "form-control",
-              class: { "is-invalid": _vm.form.errors.has("name") },
-              attrs: {
-                type: "text",
-                placeholder: "Name of Company",
-                name: "name"
-              },
-              domProps: { value: _vm.form.name },
-              on: {
-                keydown: function($event) {
-                  return _vm.form.errors.clear("name")
-                },
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.form, "name", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm.form.errors.has("name")
-              ? _c("span", {
-                  staticClass: "text-danger",
-                  domProps: { textContent: _vm._s(_vm.form.errors.get("name")) }
-                })
-              : _vm._e()
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-6" }, [
-            _c("label", { attrs: { for: "name" } }, [_vm._v("Email")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.form.email,
-                  expression: "form.email"
-                }
-              ],
-              staticClass: "form-control",
-              class: { "is-invalid": _vm.form.errors.has("email") },
-              attrs: {
-                type: "email",
-                placeholder: "example@gmail.com",
-                name: "email"
-              },
-              domProps: { value: _vm.form.email },
-              on: {
-                keydown: function($event) {
-                  return _vm.form.errors.clear("email")
-                },
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.form, "email", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm.form.errors.has("email")
-              ? _c("span", {
-                  staticClass: "text-danger",
-                  domProps: {
-                    textContent: _vm._s(_vm.form.errors.get("email"))
-                  }
-                })
-              : _vm._e()
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-row mb-1" }, [
-          _c("div", { staticClass: "form-group col-md-6" }, [
-            _c("label", { attrs: { for: "name" } }, [_vm._v("Website")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.form.website,
-                  expression: "form.website"
-                }
-              ],
-              staticClass: "form-control",
-              class: { "is-invalid": _vm.form.errors.has("website") },
-              attrs: {
-                type: "text",
-                placeholder: "Company website",
-                name: "website"
-              },
-              domProps: { value: _vm.form.website },
-              on: {
-                keydown: function($event) {
-                  return _vm.form.errors.clear("website")
-                },
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.form, "website", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm.form.errors.has("website")
-              ? _c("span", {
-                  staticClass: "text-danger",
-                  domProps: {
-                    textContent: _vm._s(_vm.form.errors.get("website"))
-                  }
-                })
-              : _vm._e()
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-6" }, [
-            _c("label", { attrs: { for: "image" } }, [_vm._v("Add Logo")]),
-            _vm._v(" "),
-            _c("input", {
-              ref: "newLogoImage",
-              staticClass: "form-control-file",
-              attrs: { type: "file", name: "logo" },
-              on: {
-                change: _vm.attachLogo,
-                keydown: function($event) {
-                  return _vm.form.errors.clear("logo")
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm.form.errors.has("logo")
-              ? _c("span", {
-                  staticClass: "text-danger",
-                  domProps: { textContent: _vm._s(_vm.form.errors.get("logo")) }
-                })
-              : _vm._e()
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary mt-3 mb-5",
-            attrs: { type: "submit" }
-          },
-          [_vm._v("Add New Company ")]
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c("nav", { attrs: { "aria-label": "Page navigation example m-5" } }, [
-      _c("ul", { staticClass: "pagination" }, [
-        _c(
-          "li",
-          {
-            staticClass: "page-item",
-            class: [{ disabled: !_vm.pagination.prev_page_url }]
-          },
-          [
-            _c(
-              "a",
-              {
-                staticClass: "page-link",
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    return _vm.getCompanies(_vm.pagination.prev_page_url)
-                  }
-                }
-              },
-              [_vm._v("Previous")]
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c("li", { staticClass: "page-item disabled" }, [
-          _c(
-            "a",
-            { staticClass: "page-link text-dark", attrs: { href: "#" } },
-            [
-              _vm._v(
-                "Page " +
-                  _vm._s(_vm.pagination.current_page) +
-                  " of " +
-                  _vm._s(_vm.pagination.last_page)
-              )
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "li",
-          {
-            staticClass: "page-item",
-            class: [{ disabled: !_vm.pagination.next_page_url }]
-          },
-          [
-            _c(
-              "a",
-              {
-                staticClass: "page-link",
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    return _vm.getCompanies(_vm.pagination.next_page_url)
-                  }
-                }
-              },
-              [_vm._v("Next")]
-            )
-          ]
-        )
-      ])
+        },
+        [_vm._v("Company")]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "btn btn-secondary col-md-6",
+          on: {
+            click: function($event) {
+              return _vm.employeeShow()
+            }
+          }
+        },
+        [_vm._v("Employee")]
+      )
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "table-responsive mt-2" }, [
-      _c("table", { staticClass: "table table-bordered mb-4" }, [
-        _vm._m(0),
-        _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.companyForm,
+            expression: "companyForm"
+          }
+        ],
+        staticClass: "animate__animated animate__fadeInDown"
+      },
+      [
         _c(
-          "tbody",
-          _vm._l(_vm.companies, function(company) {
-            return _c("tr", { key: company.id }, [
-              _c("td", [_vm._v(_vm._s(company.id))]),
-              _vm._v(" "),
-              _c("td", [
-                _c("div", { staticClass: "media" }, [
-                  _c("div", { staticClass: "d-flex" }, [
-                    _c("img", {
-                      staticStyle: { "border-radius": "6px" },
-                      attrs: {
-                        height: "100px",
-                        width: "100px",
-                        src:
-                          _vm.$store.state.serverPath +
-                          "/storage/" +
-                          company.logo,
-                        alt: ""
+          "form",
+          {
+            attrs: { enctype: "multipart/form-data" },
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.saveData($event)
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "form-row mb-1" }, [
+              _c("div", { staticClass: "form-group col-md-6" }, [
+                _c("label", { attrs: { for: "name" } }, [_vm._v("Name")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.name,
+                      expression: "form.name"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: { "is-invalid": _vm.form.errors.has("name") },
+                  attrs: {
+                    type: "text",
+                    placeholder: "Name of Company",
+                    name: "name"
+                  },
+                  domProps: { value: _vm.form.name },
+                  on: {
+                    keydown: function($event) {
+                      return _vm.form.errors.clear("name")
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
                       }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "media-body text-center" }, [
-                    _c("p", [
-                      _vm.editmode == false || _vm.editmode != company.id
-                        ? _c("span", [_vm._v(_vm._s(company.name))])
-                        : _vm._e(),
-                      _vm.editmode == company.id
-                        ? _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: company.name,
-                                expression: "company.name"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: { name: "name", type: "text" },
-                            domProps: { value: company.name },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(company, "name", $event.target.value)
-                              }
-                            }
-                          })
-                        : _vm._e()
-                    ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm.editmode == false || _vm.editmode != company.id
-                  ? _c("span", [_vm._v(_vm._s(company.email))])
-                  : _vm._e(),
-                _vm.editmode == company.id
-                  ? _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: company.email,
-                          expression: "company.email"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { name: "email", type: "text" },
-                      domProps: { value: company.email },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(company, "email", $event.target.value)
-                        }
+                      _vm.$set(_vm.form, "name", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.form.errors.has("name")
+                  ? _c("span", {
+                      staticClass: "text-danger",
+                      domProps: {
+                        textContent: _vm._s(_vm.form.errors.get("name"))
                       }
                     })
                   : _vm._e()
               ]),
               _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-6" }, [
+                _c("label", { attrs: { for: "name" } }, [_vm._v("Email")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.email,
+                      expression: "form.email"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: { "is-invalid": _vm.form.errors.has("email") },
+                  attrs: {
+                    type: "email",
+                    placeholder: "example@gmail.com",
+                    name: "email"
+                  },
+                  domProps: { value: _vm.form.email },
+                  on: {
+                    keydown: function($event) {
+                      return _vm.form.errors.clear("email")
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "email", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.form.errors.has("email")
+                  ? _c("span", {
+                      staticClass: "text-danger",
+                      domProps: {
+                        textContent: _vm._s(_vm.form.errors.get("email"))
+                      }
+                    })
+                  : _vm._e()
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-row mb-1" }, [
+              _c("div", { staticClass: "form-group col-md-6" }, [
+                _c("label", { attrs: { for: "name" } }, [_vm._v("Website")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.website,
+                      expression: "form.website"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: { "is-invalid": _vm.form.errors.has("website") },
+                  attrs: {
+                    type: "text",
+                    placeholder: "Company website",
+                    name: "website"
+                  },
+                  domProps: { value: _vm.form.website },
+                  on: {
+                    keydown: function($event) {
+                      return _vm.form.errors.clear("website")
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "website", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.form.errors.has("website")
+                  ? _c("span", {
+                      staticClass: "text-danger",
+                      domProps: {
+                        textContent: _vm._s(_vm.form.errors.get("website"))
+                      }
+                    })
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-6" }, [
+                _c("label", { attrs: { for: "image" } }, [_vm._v("Add Logo")]),
+                _vm._v(" "),
+                _c("input", {
+                  ref: "newLogoImage",
+                  staticClass: "form-control-file",
+                  attrs: { type: "file", name: "logo" },
+                  on: {
+                    change: _vm.attachLogo,
+                    keydown: function($event) {
+                      return _vm.form.errors.clear("logo")
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.form.errors.has("logo")
+                  ? _c("span", {
+                      staticClass: "text-danger",
+                      domProps: {
+                        textContent: _vm._s(_vm.form.errors.get("logo"))
+                      }
+                    })
+                  : _vm._e()
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary mt-3 mb-5",
+                attrs: { type: "submit" }
+              },
+              [_vm._v("Add New Company ")]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c("nav", { attrs: { "aria-label": "Page navigation example m-5" } }, [
+          _c("ul", { staticClass: "pagination" }, [
+            _c(
+              "li",
+              {
+                staticClass: "page-item",
+                class: [{ disabled: !_vm.pagination.prev_page_url }]
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    staticClass: "page-link",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        return _vm.getCompanies(_vm.pagination.prev_page_url)
+                      }
+                    }
+                  },
+                  [_vm._v("Previous")]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("li", { staticClass: "page-item disabled" }, [
               _c(
-                "td",
+                "a",
+                { staticClass: "page-link text-dark", attrs: { href: "#" } },
                 [
-                  _c("router-link", { staticStyle: { color: "blue" } }, [
+                  _vm._v(
+                    "Page " +
+                      _vm._s(_vm.pagination.current_page) +
+                      " of " +
+                      _vm._s(_vm.pagination.last_page)
+                  )
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "li",
+              {
+                staticClass: "page-item",
+                class: [{ disabled: !_vm.pagination.next_page_url }]
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    staticClass: "page-link",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        return _vm.getCompanies(_vm.pagination.next_page_url)
+                      }
+                    }
+                  },
+                  [_vm._v("Next")]
+                )
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "table-responsive mt-2" }, [
+          _c("table", { staticClass: "table table-bordered mb-4" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.companies, function(company) {
+                return _c("tr", { key: company.id }, [
+                  _c("td", [_vm._v(_vm._s(company.id))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c("div", { staticClass: "media" }, [
+                      _c("div", { staticClass: "d-flex" }, [
+                        _c("img", {
+                          staticStyle: { "border-radius": "6px" },
+                          attrs: {
+                            height: "100px",
+                            width: "100px",
+                            src:
+                              _vm.$store.state.serverPath +
+                              "/storage/" +
+                              company.logo,
+                            alt: ""
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "media-body text-center" }, [
+                        _c("p", [
+                          _vm.editmode == false || _vm.editmode != company.id
+                            ? _c("span", [_vm._v(_vm._s(company.name))])
+                            : _vm._e(),
+                          _vm.editmode == company.id
+                            ? _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: company.name,
+                                    expression: "company.name"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { name: "name", type: "text" },
+                                domProps: { value: company.name },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      company,
+                                      "name",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            : _vm._e()
+                        ])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
                     _vm.editmode == false || _vm.editmode != company.id
-                      ? _c("span", [_vm._v(_vm._s(company.website))])
+                      ? _c("span", [_vm._v(_vm._s(company.email))])
                       : _vm._e(),
                     _vm.editmode == company.id
                       ? _c("input", {
@@ -38215,53 +38556,193 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: company.website,
-                              expression: "company.website"
+                              value: company.email,
+                              expression: "company.email"
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { name: "website", type: "text" },
-                          domProps: { value: company.website },
+                          attrs: { name: "email", type: "text" },
+                          domProps: { value: company.email },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.$set(company, "website", $event.target.value)
+                              _vm.$set(company, "email", $event.target.value)
                             }
                           }
                         })
                       : _vm._e()
-                  ])
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-center" }, [
-                _c(
-                  "div",
-                  { staticClass: "ml-auto mr-2 d-flex align-items-center" },
-                  [
-                    _c("span", [
-                      _vm.editmode != company.id
-                        ? _c(
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    [
+                      _c("router-link", { staticStyle: { color: "blue" } }, [
+                        _vm.editmode == false || _vm.editmode != company.id
+                          ? _c("span", [_vm._v(_vm._s(company.website))])
+                          : _vm._e(),
+                        _vm.editmode == company.id
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: company.website,
+                                  expression: "company.website"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { name: "website", type: "text" },
+                              domProps: { value: company.website },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    company,
+                                    "website",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-center" }, [
+                    _c(
+                      "div",
+                      { staticClass: "ml-auto mr-2 d-flex align-items-center" },
+                      [
+                        _c("span", [
+                          _vm.editmode != company.id
+                            ? _c(
+                                "svg",
+                                {
+                                  staticClass:
+                                    "icon icon-tabler icon-tabler-edit",
+                                  attrs: {
+                                    xmlns: "http://www.w3.org/2000/svg",
+                                    width: "36",
+                                    height: "36",
+                                    viewBox: "0 0 24 24",
+                                    "stroke-width": "1.5",
+                                    stroke: "#FFC107",
+                                    fill: "none",
+                                    "stroke-linecap": "round",
+                                    "stroke-linejoin": "round"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.editmode = company.id
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("path", {
+                                    attrs: {
+                                      stroke: "none",
+                                      d: "M0 0h24v24H0z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    attrs: {
+                                      d:
+                                        "M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    attrs: {
+                                      d:
+                                        "M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("line", {
+                                    attrs: {
+                                      x1: "16",
+                                      y1: "5",
+                                      x2: "19",
+                                      y2: "8"
+                                    }
+                                  })
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.editmode == company.id
+                            ? _c(
+                                "svg",
+                                {
+                                  staticClass:
+                                    "icon icon-tabler icon-tabler-checkbox",
+                                  attrs: {
+                                    xmlns: "http://www.w3.org/2000/svg",
+                                    width: "36",
+                                    height: "36",
+                                    viewBox: "0 0 24 24",
+                                    "stroke-width": "1.5",
+                                    stroke: "#4CAF50",
+                                    fill: "none",
+                                    "stroke-linecap": "round",
+                                    "stroke-linejoin": "round"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.updateCompany(company)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("path", {
+                                    attrs: {
+                                      stroke: "none",
+                                      d: "M0 0h24v24H0z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("polyline", {
+                                    attrs: { points: "9 11 12 14 20 6" }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    attrs: {
+                                      d:
+                                        "M20 12v6a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h9"
+                                    }
+                                  })
+                                ]
+                              )
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("span", [
+                          _c(
                             "svg",
                             {
-                              staticClass: "icon icon-tabler icon-tabler-edit",
+                              staticClass:
+                                "icon icon-tabler icon-tabler-trash ml-1",
                               attrs: {
                                 xmlns: "http://www.w3.org/2000/svg",
                                 width: "36",
                                 height: "36",
                                 viewBox: "0 0 24 24",
                                 "stroke-width": "1.5",
-                                stroke: "#FFC107",
+                                stroke: "#FF5722",
                                 fill: "none",
                                 "stroke-linecap": "round",
                                 "stroke-linejoin": "round"
                               },
                               on: {
                                 click: function($event) {
-                                  _vm.editmode = company.id
+                                  return _vm.deleteCompany(company)
                                 }
                               }
                             },
@@ -38270,47 +38751,639 @@ var render = function() {
                                 attrs: { stroke: "none", d: "M0 0h24v24H0z" }
                               }),
                               _vm._v(" "),
-                              _c("path", {
-                                attrs: {
-                                  d:
-                                    "M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"
-                                }
+                              _c("line", {
+                                attrs: { x1: "4", y1: "7", x2: "20", y2: "7" }
                               }),
                               _vm._v(" "),
-                              _c("path", {
+                              _c("line", {
                                 attrs: {
-                                  d:
-                                    "M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3"
+                                  x1: "10",
+                                  y1: "11",
+                                  x2: "10",
+                                  y2: "17"
                                 }
                               }),
                               _vm._v(" "),
                               _c("line", {
-                                attrs: { x1: "16", y1: "5", x2: "19", y2: "8" }
+                                attrs: {
+                                  x1: "14",
+                                  y1: "11",
+                                  x2: "14",
+                                  y2: "17"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("path", {
+                                attrs: {
+                                  d:
+                                    "M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("path", {
+                                attrs: {
+                                  d: "M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"
+                                }
                               })
                             ]
                           )
-                        : _vm._e(),
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              }),
+              0
+            )
+          ])
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.employeeForm,
+            expression: "employeeForm"
+          }
+        ],
+        staticClass: "animate__animated animate__fadeInDown"
+      },
+      [_c("employee-component")],
+      1
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Company Name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Email")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Website")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center", attrs: { scope: "col" } }, [
+          _vm._v("Action")
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EmployeeComponent.vue?vue&type=template&id=20dc3794&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EmployeeComponent.vue?vue&type=template&id=20dc3794& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.companyForm,
+            expression: "companyForm"
+          }
+        ],
+        staticClass: "animate__animated animate__fadeInDown"
+      },
+      [
+        _c(
+          "form",
+          {
+            attrs: { enctype: "multipart/form-data" },
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.saveData($event)
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "form-row mb-1" }, [
+              _c("div", { staticClass: "form-group col-md-6" }, [
+                _c("label", { attrs: { for: "name" } }, [_vm._v("Name")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.name,
+                      expression: "form.name"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: { "is-invalid": _vm.form.errors.has("name") },
+                  attrs: {
+                    type: "text",
+                    placeholder: "Name of Company",
+                    name: "name"
+                  },
+                  domProps: { value: _vm.form.name },
+                  on: {
+                    keydown: function($event) {
+                      return _vm.form.errors.clear("name")
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "name", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.form.errors.has("name")
+                  ? _c("span", {
+                      staticClass: "text-danger",
+                      domProps: {
+                        textContent: _vm._s(_vm.form.errors.get("name"))
+                      }
+                    })
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-6" }, [
+                _c("label", { attrs: { for: "name" } }, [_vm._v("Email")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.email,
+                      expression: "form.email"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: { "is-invalid": _vm.form.errors.has("email") },
+                  attrs: {
+                    type: "email",
+                    placeholder: "example@gmail.com",
+                    name: "email"
+                  },
+                  domProps: { value: _vm.form.email },
+                  on: {
+                    keydown: function($event) {
+                      return _vm.form.errors.clear("email")
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "email", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.form.errors.has("email")
+                  ? _c("span", {
+                      staticClass: "text-danger",
+                      domProps: {
+                        textContent: _vm._s(_vm.form.errors.get("email"))
+                      }
+                    })
+                  : _vm._e()
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-row mb-1" }, [
+              _c("div", { staticClass: "form-group col-md-6" }, [
+                _c("label", { attrs: { for: "name" } }, [_vm._v("Website")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.website,
+                      expression: "form.website"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: { "is-invalid": _vm.form.errors.has("website") },
+                  attrs: {
+                    type: "text",
+                    placeholder: "Company website",
+                    name: "website"
+                  },
+                  domProps: { value: _vm.form.website },
+                  on: {
+                    keydown: function($event) {
+                      return _vm.form.errors.clear("website")
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "website", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.form.errors.has("website")
+                  ? _c("span", {
+                      staticClass: "text-danger",
+                      domProps: {
+                        textContent: _vm._s(_vm.form.errors.get("website"))
+                      }
+                    })
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-6" }, [
+                _c("label", { attrs: { for: "image" } }, [_vm._v("Add Logo")]),
+                _vm._v(" "),
+                _c("input", {
+                  ref: "newLogoImage",
+                  staticClass: "form-control-file",
+                  attrs: { type: "file", name: "logo" },
+                  on: {
+                    change: _vm.attachLogo,
+                    keydown: function($event) {
+                      return _vm.form.errors.clear("logo")
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.form.errors.has("logo")
+                  ? _c("span", {
+                      staticClass: "text-danger",
+                      domProps: {
+                        textContent: _vm._s(_vm.form.errors.get("logo"))
+                      }
+                    })
+                  : _vm._e()
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary mt-3 mb-5",
+                attrs: { type: "submit" }
+              },
+              [_vm._v("Add New Company ")]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c("nav", { attrs: { "aria-label": "Page navigation example m-5" } }, [
+          _c("ul", { staticClass: "pagination" }, [
+            _c(
+              "li",
+              {
+                staticClass: "page-item",
+                class: [{ disabled: !_vm.pagination.prev_page_url }]
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    staticClass: "page-link",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        return _vm.getCompanies(_vm.pagination.prev_page_url)
+                      }
+                    }
+                  },
+                  [_vm._v("Previous")]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("li", { staticClass: "page-item disabled" }, [
+              _c(
+                "a",
+                { staticClass: "page-link text-dark", attrs: { href: "#" } },
+                [
+                  _vm._v(
+                    "Page " +
+                      _vm._s(_vm.pagination.current_page) +
+                      " of " +
+                      _vm._s(_vm.pagination.last_page)
+                  )
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "li",
+              {
+                staticClass: "page-item",
+                class: [{ disabled: !_vm.pagination.next_page_url }]
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    staticClass: "page-link",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        return _vm.getCompanies(_vm.pagination.next_page_url)
+                      }
+                    }
+                  },
+                  [_vm._v("Next")]
+                )
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "table-responsive mt-2" }, [
+          _c("table", { staticClass: "table table-bordered mb-4" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.companies, function(company) {
+                return _c("tr", { key: company.id }, [
+                  _c("td", [_vm._v(_vm._s(company.id))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c("div", { staticClass: "media" }, [
+                      _c("div", { staticClass: "d-flex" }, [
+                        _c("img", {
+                          staticStyle: { "border-radius": "6px" },
+                          attrs: {
+                            height: "100px",
+                            width: "100px",
+                            src:
+                              _vm.$store.state.serverPath +
+                              "/storage/" +
+                              company.logo,
+                            alt: ""
+                          }
+                        })
+                      ]),
                       _vm._v(" "),
-                      _vm.editmode == company.id
-                        ? _c(
+                      _c("div", { staticClass: "media-body text-center" }, [
+                        _c("p", [
+                          _vm.editmode == false || _vm.editmode != company.id
+                            ? _c("span", [_vm._v(_vm._s(company.name))])
+                            : _vm._e(),
+                          _vm.editmode == company.id
+                            ? _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: company.name,
+                                    expression: "company.name"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { name: "name", type: "text" },
+                                domProps: { value: company.name },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      company,
+                                      "name",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            : _vm._e()
+                        ])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm.editmode == false || _vm.editmode != company.id
+                      ? _c("span", [_vm._v(_vm._s(company.email))])
+                      : _vm._e(),
+                    _vm.editmode == company.id
+                      ? _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: company.email,
+                              expression: "company.email"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { name: "email", type: "text" },
+                          domProps: { value: company.email },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(company, "email", $event.target.value)
+                            }
+                          }
+                        })
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    [
+                      _c("router-link", { staticStyle: { color: "blue" } }, [
+                        _vm.editmode == false || _vm.editmode != company.id
+                          ? _c("span", [_vm._v(_vm._s(company.website))])
+                          : _vm._e(),
+                        _vm.editmode == company.id
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: company.website,
+                                  expression: "company.website"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { name: "website", type: "text" },
+                              domProps: { value: company.website },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    company,
+                                    "website",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-center" }, [
+                    _c(
+                      "div",
+                      { staticClass: "ml-auto mr-2 d-flex align-items-center" },
+                      [
+                        _c("span", [
+                          _vm.editmode != company.id
+                            ? _c(
+                                "svg",
+                                {
+                                  staticClass:
+                                    "icon icon-tabler icon-tabler-edit",
+                                  attrs: {
+                                    xmlns: "http://www.w3.org/2000/svg",
+                                    width: "36",
+                                    height: "36",
+                                    viewBox: "0 0 24 24",
+                                    "stroke-width": "1.5",
+                                    stroke: "#FFC107",
+                                    fill: "none",
+                                    "stroke-linecap": "round",
+                                    "stroke-linejoin": "round"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.editmode = company.id
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("path", {
+                                    attrs: {
+                                      stroke: "none",
+                                      d: "M0 0h24v24H0z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    attrs: {
+                                      d:
+                                        "M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    attrs: {
+                                      d:
+                                        "M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("line", {
+                                    attrs: {
+                                      x1: "16",
+                                      y1: "5",
+                                      x2: "19",
+                                      y2: "8"
+                                    }
+                                  })
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.editmode == company.id
+                            ? _c(
+                                "svg",
+                                {
+                                  staticClass:
+                                    "icon icon-tabler icon-tabler-checkbox",
+                                  attrs: {
+                                    xmlns: "http://www.w3.org/2000/svg",
+                                    width: "36",
+                                    height: "36",
+                                    viewBox: "0 0 24 24",
+                                    "stroke-width": "1.5",
+                                    stroke: "#4CAF50",
+                                    fill: "none",
+                                    "stroke-linecap": "round",
+                                    "stroke-linejoin": "round"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.updateCompany(company)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("path", {
+                                    attrs: {
+                                      stroke: "none",
+                                      d: "M0 0h24v24H0z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("polyline", {
+                                    attrs: { points: "9 11 12 14 20 6" }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    attrs: {
+                                      d:
+                                        "M20 12v6a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h9"
+                                    }
+                                  })
+                                ]
+                              )
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("span", [
+                          _c(
                             "svg",
                             {
                               staticClass:
-                                "icon icon-tabler icon-tabler-checkbox",
+                                "icon icon-tabler icon-tabler-trash ml-1",
                               attrs: {
                                 xmlns: "http://www.w3.org/2000/svg",
                                 width: "36",
                                 height: "36",
                                 viewBox: "0 0 24 24",
                                 "stroke-width": "1.5",
-                                stroke: "#4CAF50",
+                                stroke: "#FF5722",
                                 fill: "none",
                                 "stroke-linecap": "round",
                                 "stroke-linejoin": "round"
                               },
                               on: {
                                 click: function($event) {
-                                  return _vm.updateCompany(company)
+                                  return _vm.deleteCompany(company)
                                 }
                               }
                             },
@@ -38319,85 +39392,54 @@ var render = function() {
                                 attrs: { stroke: "none", d: "M0 0h24v24H0z" }
                               }),
                               _vm._v(" "),
-                              _c("polyline", {
-                                attrs: { points: "9 11 12 14 20 6" }
+                              _c("line", {
+                                attrs: { x1: "4", y1: "7", x2: "20", y2: "7" }
+                              }),
+                              _vm._v(" "),
+                              _c("line", {
+                                attrs: {
+                                  x1: "10",
+                                  y1: "11",
+                                  x2: "10",
+                                  y2: "17"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("line", {
+                                attrs: {
+                                  x1: "14",
+                                  y1: "11",
+                                  x2: "14",
+                                  y2: "17"
+                                }
                               }),
                               _vm._v(" "),
                               _c("path", {
                                 attrs: {
                                   d:
-                                    "M20 12v6a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h9"
+                                    "M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("path", {
+                                attrs: {
+                                  d: "M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"
                                 }
                               })
                             ]
                           )
-                        : _vm._e()
-                    ]),
-                    _vm._v(" "),
-                    _c("span", [
-                      _c(
-                        "svg",
-                        {
-                          staticClass:
-                            "icon icon-tabler icon-tabler-trash ml-1",
-                          attrs: {
-                            xmlns: "http://www.w3.org/2000/svg",
-                            width: "36",
-                            height: "36",
-                            viewBox: "0 0 24 24",
-                            "stroke-width": "1.5",
-                            stroke: "#FF5722",
-                            fill: "none",
-                            "stroke-linecap": "round",
-                            "stroke-linejoin": "round"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.deleteCompany(company)
-                            }
-                          }
-                        },
-                        [
-                          _c("path", {
-                            attrs: { stroke: "none", d: "M0 0h24v24H0z" }
-                          }),
-                          _vm._v(" "),
-                          _c("line", {
-                            attrs: { x1: "4", y1: "7", x2: "20", y2: "7" }
-                          }),
-                          _vm._v(" "),
-                          _c("line", {
-                            attrs: { x1: "10", y1: "11", x2: "10", y2: "17" }
-                          }),
-                          _vm._v(" "),
-                          _c("line", {
-                            attrs: { x1: "14", y1: "11", x2: "14", y2: "17" }
-                          }),
-                          _vm._v(" "),
-                          _c("path", {
-                            attrs: {
-                              d:
-                                "M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("path", {
-                            attrs: {
-                              d: "M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"
-                            }
-                          })
-                        ]
-                      )
-                    ])
-                  ]
-                )
-              ])
-            ])
-          }),
-          0
-        )
-      ])
-    ])
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              }),
+              0
+            )
+          ])
+        ])
+      ]
+    )
   ])
 }
 var staticRenderFns = [

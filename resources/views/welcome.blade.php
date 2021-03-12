@@ -26,7 +26,7 @@
                             <nav class="breadcrumb-one" aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page"><span>Add Company</span></li>
+                                    <li class="breadcrumb-item active" aria-current="page"><span>Add Company Or Employee</span></li>
                                 </ol>
                             </nav>
     
@@ -53,7 +53,7 @@
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                             <div class="widget widget-activity-two">
                                 <div class="widget-heading">
-                                    <h5 class="">Add Company</h5>   
+                                    <h5 class="">Add Company Or Employee</h5>   
                                 </div>
                                 @if(session()->has('message'))
                                 <div class="alert alert-success" role="alert">
