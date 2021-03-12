@@ -44,7 +44,6 @@
                                 <p class="signup-link">Visit my github <a href="https://github.com/Chris-Miracle"> you might see what you like</a></p>
                             </div>
                         </form>
-
                     </div>                    
                 </div>
             </div>
