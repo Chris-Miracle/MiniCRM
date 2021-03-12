@@ -33,4 +33,7 @@
 
 <!--  BEGIN CUSTOM STYLE FILE  -->
 <link href="{{asset('admin/assets/css/apps/invoice.css" rel="stylesheet" type="text/css')}}" />
+
+<link rel="stylesheet" href="{{ mix('css/app.css') }}" />
+<script defer src="{{ mix('js/app.js') }}"></script>
 <!--  END CUSTOM STYLE FILE  -->

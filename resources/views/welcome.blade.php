@@ -13,7 +13,7 @@
 
     @include('layouts.admin_layouts.topnav')
     
-    
+    <div id="app">
         <!--  BEGIN NAVBAR  -->
         <div class="sub-header-container">
             <header class="header navbar navbar-expand-sm">
@@ -61,6 +61,7 @@
                                 </div>
                                 @endif
                             <div class="widget-content">
+                                <company-component></company-component>
                             {{-- <form action="{{route('craft.add')}}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @method('post')
@@ -104,6 +105,7 @@
                 </div>
             </div>
         </div>
+    </div>
 
 
 @include('layouts.admin_layouts.footer')
