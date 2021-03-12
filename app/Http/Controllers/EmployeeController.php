@@ -35,7 +35,22 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+                'fname' => 'required',
+                'lname' => 'required',
+                'email' => 'required',
+                'phone' => 'required',
+            ]
+        );
+        // dd($request->all());
+        $data = new Employee;
+        $data->fname = $request->input('fname');
+        $data->lname = $request->input('lname');
+        $data->email = $request->input('email');
+        $data->phone = $request->input('phone');
+        $data->company_id = 4;
+        
+        $data->save();
     }
 
     /**
@@ -69,7 +84,9 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = Employee::findOrfail($id);
+        $data->update($request->all());
+        $data->save();
     }
 
     /**
@@ -80,6 +97,8 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Employee::findOrfail($id);
+        $data->delete();
+        return Employee::latest()->get();
     }
 }

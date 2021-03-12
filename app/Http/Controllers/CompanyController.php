@@ -105,6 +105,6 @@ class CompanyController extends Controller
     {
         $data = Company::findOrfail($id);
         $data->delete();
-        return Company::latest()->paginate(10);
+        return Company::latest()->get();
     }
 }
