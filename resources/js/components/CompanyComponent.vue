@@ -63,7 +63,7 @@
                             <td>
                                 <div class="media">
                                     <div class="d-flex">
-                                        <img height="100px" width="100px" style="border-radius: 6px;" :src="`${$store.state.serverPath}/storage/${company.logo}`" alt=""/>
+                                        <img height="100px" width="100px" style="border-radius: 6px;" :src="`${$store.state.serverPath}/storage/app/public/${company.logo}`" alt=""/>
                                     </div>
                                     <div class="media-body text-center">
                                         <p><span v-if="editmode == false || editmode != company.id">{{company.name}}</span><input v-if="editmode == company.id" name="name" class="form-control" v-model="company.name" type="text"></p>
