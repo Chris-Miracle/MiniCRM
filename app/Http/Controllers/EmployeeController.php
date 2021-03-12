@@ -48,7 +48,7 @@ class EmployeeController extends Controller
         $data->lname = $request->input('lname');
         $data->email = $request->input('email');
         $data->phone = $request->input('phone');
-        $data->company_id = 4;
+        $data->company_id = 1;
         
         $data->save();
     }
